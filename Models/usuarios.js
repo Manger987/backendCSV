@@ -4,12 +4,12 @@ let Schema = mongoose.Schema;
 let ObjectId = Schema.ObjectId;
 
 const usuariosSchema =  new mongoose.Schema({
-    _id: Schema.Types.ObjectId,
+    _id: mongoose.Schema.Types.ObjectId,
     usuario: String,
     nombre: String,
     apellido: String,
     email: String,
-    ventas: [{ type: Schema.Types.ObjectId, ref: 'Ventas' }]
+    ventas: [{ type: Schema.Types.ObjectId, ref: 'Venta' }]
 });
 
 const Usuarios = mongoose.model('Usuarios',usuariosSchema);
