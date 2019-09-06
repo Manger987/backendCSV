@@ -42,60 +42,46 @@ router.get('/getSales', async (req, res, next) => {
 })
 
 router.get('/getSalesBySeller/:id', async (req, res, next) => {
-    let array = [];
-    const sales = Ventas.find({vendedor: req.params.id}).populate('item_id').exec()
-
-    const returnSales = await sales.then(async (data) => {
-      data.forEach(sale =>{
-        sale.invoicedAmount = (sale.item_id.precio) ? parseInt(sale.item_id.precio * sale.cantidad) : 0;
-        return sale
+    Ventas.find({vendedor: req.params.id}).populate('item_id').exec()
+    .then(async (data) => {
+      array = [];
+      data.map((sale,index) => {
+        const saleObject = {
+          item: sale.item,
+          vendedor: sale.vendedor,
+          cantidad: sale.cantidad,
+          fecha: sale.fecha,
+          vendedor_id: sale.vendedor_id,
+          invoicedAmount: (sale.item_id.precio) ? parseInt(sale.item_id.precio * sale.cantidad) : 0
+        } 
+        array.push(saleObject);
+        if( parseInt(index+1) === data.length) {
+          res.json(array)
+        }
       })
-      console.log('datos:',datos)
-      return datos
     })
-    next(
-      res.json(returnSales)
-    )
+})
 
-
-    /*let ventas = []
-    let usuarioVentas = await Ventas.find({vendedor: req.params.id}).exec()
-    usuarioVentas = await usuarioVentas.map(async (venta) => {
-        const invoicedAmount = await Utils.calculateCountSalesByItem(venta.item,venta.cantidad)//.then((data) => console.log(data))// Monto Facturado por cantidad de Item
-        venta.invoicedAmount = parseInt(invoicedAmount)
-        ventas.push(venta)
-        console.log('vennntas',venta)
-        return venta
+router.get('/:id/getSalesByItem/:idItem', async (req, res, next) => {
+  console.log("PARAMS:",req.params)
+  Ventas.find({vendedor: req.params.id,item: req.params.idItem}).populate('item_id').exec()
+    .then(async (data) => {
+      array = [];
+      data.map((sale,index) => {
+        const saleObject = {
+          item: sale.item,
+          vendedor: sale.vendedor,
+          cantidad: sale.cantidad,
+          fecha: sale.fecha,
+          vendedor_id: sale.vendedor_id,
+          invoicedAmount: (sale.item_id.precio) ? parseInt(sale.item_id.precio * sale.cantidad) : 0
+        } 
+        array.push(saleObject);
+        if( parseInt(index+1) === data.length) {
+          res.json(array)
+        }
+      })
     })
-    console.log('VENTAS:',ventas)
-    res.send(usuarioVentas)*/
-   
-   /* Ventas.find({vendedor: req.params.id})
-    //.populate('item', 'precio')
-    .exec()
-    .then(async docs => {
-        const sales = docs.map( doc => {
-        const invoicedAmount =  Utils.calculateCountSalesByItem(doc.item,doc.cantidad)//.then((data) => console.log(data))// Monto Facturado por cantidad de Item
-        
-          const dev = {
-            _id: doc._id,
-            item: doc.item,
-            vendedor: doc.vendedor,
-            cantidad: doc.cantidad,
-            fecha: doc.fecha, 
-            invoicedAmount: invoicedAmount,
-            vendedor_id: doc.vendedor_id,
-            count: docs.length
-          }
-          return dev
-      });
-     res.send(sales);
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });*/
 })
 
 module.exports = router;
