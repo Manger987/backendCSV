@@ -15,6 +15,7 @@
     "fast-csv": "^3.4.0",
     "map": "^1.0.1",
     "mongoose": "^5.6.11",
+    "normalize-port": "^1.0.0",
     "split": "^1.0.1"
   }
 }
