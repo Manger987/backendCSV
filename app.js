@@ -9,6 +9,8 @@ const cors = require('cors')
 const ventaRoutes = require('./Routes/ventaRouter');
 const itemRoutes = require('./Routes/itemRouter');
 const userRoutes = require('./Routes/usuarioRouter');
+const http = require('http');
+const normalizePort = require('normalize-port');
 
 const app = express()
 
@@ -33,5 +35,5 @@ app.use('/ventas', ventaRoutes);
 app.use('/items', itemRoutes);
 app.use('/users', userRoutes);
 
-
-app.listen(2000, () => console.log('Escuchando por el puerto 2000!!!'));
+const port = normalizePort(process.env.PORT || '3000');
+app.listen(port, () => console.log('Escuchando por el puerto 2000!!!'));
