@@ -10,7 +10,7 @@ const ventaSchema =  new mongoose.Schema({
     vendedor: String,
     cantidad: Number,
     fecha: Date,
-    vendedor_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuarios' },
+    vendedor_id: { type: mongoose.Schema.ObjectId, ref: 'Usuarios' },
     item_id : { type: mongoose.Schema.ObjectId, ref: 'Items' },//[{ type: Schema.Types.ObjectId, ref: 'item' }],
 });
 

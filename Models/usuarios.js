@@ -9,7 +9,7 @@ const usuariosSchema =  new mongoose.Schema({
     nombre: String,
     apellido: String,
     email: String,
-    ventas: [{ type: Schema.Types.ObjectId, ref: 'Venta' }]
+    ventas: { type: mongoose.Schema.ObjectId, ref: 'Ventas' }
 });
 
 const Usuarios = mongoose.model('Usuarios',usuariosSchema);
