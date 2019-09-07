@@ -26,14 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-
-// readSaveItems()
-// readSaveVentas()
-// readSaveUsuarios()
-
-/*app.get('/', function(req, res) {
+app.get('/', function(req, res) {
   res.send('hello world');
-});*/
+});
 app.use('/ventas', ventaRoutes);
 app.use('/items', itemRoutes);
 app.use('/users', userRoutes);
