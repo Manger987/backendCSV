@@ -36,12 +36,12 @@ router.get('/addCsvSales', async (req, res, next) => {
     }
 }); 
 
-router.get('/getSales', async (req, res, next) => {
+router.get('/', async (req, res, next) => {//getSales
     const sales = await Ventas.find();
     res.json(sales);
 })
 
-router.get('/getSalesBySeller/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {//getSalesBySeller
     Ventas.find({vendedor: req.params.id}).populate('item_id').exec()
     .then(async (data) => {
       array = [];
@@ -62,9 +62,8 @@ router.get('/getSalesBySeller/:id', async (req, res, next) => {
     })
 })
 
-router.get('/:id/getSalesByItem/:idItem', async (req, res, next) => {
-  console.log("PARAMS:",req.params)
-  Ventas.find({vendedor: req.params.id,item: req.params.idItem}).populate('item_id').exec()
+router.get('/:idSeller/getSalesByItem/:idItem', async (req, res, next) => {
+  Ventas.find({vendedor: req.params.idSeller,item: req.params.idItem}).populate('item_id').exec()
     .then(async (data) => {
       array = [];
       data.map((sale,index) => {

@@ -36,4 +36,4 @@ app.use('/items', itemRoutes);
 app.use('/users', userRoutes);
 
 const port = normalizePort(process.env.PORT || '3000');
-app.listen(port, () => console.log('Escuchando por el puerto 2000!!!'));
+app.listen(port, () => console.log('Escuchando por el puerto 3000!!!'));
