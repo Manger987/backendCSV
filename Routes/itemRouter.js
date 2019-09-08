@@ -33,7 +33,7 @@ router.get('/addCsvItems', async (req, res, next) => {
     }
 }); 
 
-router.get('/getItems', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     const items = await Items.find();
     res.json(items);
 })
