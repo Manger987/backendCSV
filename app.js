@@ -15,7 +15,10 @@ const normalizePort = require('normalize-port');
 const app = express()
 
 var allowedOrigins = ['http://localhost:4200',
-                      'https://frontendcsv.mangerpv.now.sh/'];
+                      'https://frontendcsv.mangerpv.now.sh/',
+                      'https://frontendcsv-git-master.mangerpv.now.sh',
+                      'https://frontendcsv-b27fuso11.now.sh'
+                      ];
 app.use(cors({
   origin: function(origin, callback){
     // allow requests with no origin 
