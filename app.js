@@ -14,12 +14,21 @@ const normalizePort = require('normalize-port');
 
 const app = express()
 
-const corsOptions = {
-  origin: 'http://localhost:4200',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, letious SmartTVs) choke on 204 
-}
-
-app.use(cors(corsOptions))
+var allowedOrigins = ['http://localhost:4200',
+                      'https://frontendcsv.mangerpv.now.sh/'];
+app.use(cors({
+  origin: function(origin, callback){
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 exports.Utils = Utils;
 
