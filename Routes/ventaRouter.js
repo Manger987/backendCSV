@@ -37,7 +37,7 @@ router.get('/addCsvSales', async (req, res, next) => {
 }); 
 
 router.get('/', async (req, res, next) => {//getSales
-    const sales = await Ventas.find();
+    const sales = await Ventas.find().populate('item_id').exec();
     res.json(sales);
 })
 
