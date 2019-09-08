@@ -5,7 +5,7 @@ const item = require('./items')
 let ObjectId = Schema.ObjectId;  
 
 const ventaSchema =  new mongoose.Schema({
-    _id : mongoose.Schema.Types.ObjectId,
+    //_id : mongoose.Schema.Types.ObjectId,
     item: Number,
     vendedor: String,
     cantidad: Number,
