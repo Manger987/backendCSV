@@ -5,6 +5,8 @@ const User = require('../Models/usuarios')
 const Ventas = require('../Models/ventas')
 const Item = require('../Models/items')
 const Utils = require('../Utils/utils')
+const moment = require('moment'); 
+
 let router = express.Router();
 
 router.get('/addCsvSales', async (req, res, next) => {
@@ -50,7 +52,7 @@ router.get('/:id', async (req, res, next) => {//getSalesBySeller
           item: sale.item,
           vendedor: sale.vendedor,
           cantidad: sale.cantidad,
-          fecha: sale.fecha,
+          fecha: moment(sale.fecha).format("DD-MM-YYYY"),
           vendedor_id: sale.vendedor_id,
           invoicedAmount: (sale.item_id.precio) ? parseInt(sale.item_id.precio * sale.cantidad) : 0
         } 
@@ -71,7 +73,7 @@ router.get('/:idSeller/getSalesByItem/:idItem', async (req, res, next) => {
           item: sale.item,
           vendedor: sale.vendedor,
           cantidad: sale.cantidad,
-          fecha: sale.fecha,
+          fecha: moment(sale.fecha).format("DD-MM-YYYY"),
           vendedor_id: sale.vendedor_id,
           invoicedAmount: (sale.item_id.precio) ? parseInt(sale.item_id.precio * sale.cantidad) : 0
         } 
